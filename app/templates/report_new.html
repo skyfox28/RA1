@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Nouveau rapport{% endblock %}
+{% block content %}
+<h1 class="h3 mb-3">Nouveau rapport journalier</h1>
+<form method="post" class="card p-4 shadow-sm" style="max-width:500px">
+  <div class="mb-3">
+    <label class="form-label">Zone</label>
+    <input type="text" name="zone" class="form-control" value="RA1" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Date du contrôle</label>
+    <input type="date" name="report_date" class="form-control" value="{{ today }}" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Responsable du contrôle</label>
+    <input type="text" name="author" class="form-control" placeholder="Nom prénom" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Notes générales (optionnel)</label>
+    <textarea name="notes" class="form-control" rows="3"></textarea>
+  </div>
+  <button class="btn btn-primary">Créer le rapport</button>
+</form>
+{% endblock %}

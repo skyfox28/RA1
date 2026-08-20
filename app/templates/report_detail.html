@@ -1,0 +1,336 @@
+{% extends "base.html" %}
+{% block title %}Rapport {{ report.zone }} – {{ report.report_date.strftime('%d/%m/%Y') }}{% endblock %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-start mb-3">
+  <div>
+    <h1 class="h3 mb-1">Zone {{ report.zone }} — {{ report.report_date.strftime('%d/%m/%Y') }}</h1>
+    <div class="text-muted">Responsable : {{ report.author or '—' }}</div>
+    {% if report.notes %}<div class="text-muted fst-italic">{{ report.notes }}</div>{% endif %}
+  </div>
+  <a href="{{ url_for('main.report_download', report_id=report.id) }}" class="btn btn-success">⬇ Télécharger le compte-rendu Word</a>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-4">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <div class="display-6">{{ report.total_lines }}</div>
+        <div class="text-muted">Contrôles réalisés</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <div class="display-6 text-danger">{{ report.drift_lines|length }}</div>
+        <div class="text-muted">Écarts / dérives</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <div class="display-6">{{ report.drift_rate }}%</div>
+        <div class="text-muted">Taux de dérive</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ IMPORTS SAP ============ -->
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header">Extraction stock — <strong>LX02</strong></div>
+      <div class="card-body">
+        {% if report.last_sap_import %}
+          <p class="mb-2">
+            <strong>{{ report.last_sap_import.original_filename }}</strong><br>
+            {{ sap_rows|length }} lignes — importée le {{ report.last_sap_import.imported_at.strftime('%d/%m/%Y %H:%M') }}
+          </p>
+          <button class="btn btn-sm btn-outline-secondary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#lx02table">Voir les lignes</button>
+          <div class="collapse" id="lx02table">
+            <div class="table-responsive" style="max-height:300px">
+              <table class="table table-sm table-striped">
+                <thead><tr><th>Article</th><th>Désignation</th><th>Lot</th><th>Qté</th><th>UM</th><th>DLC</th></tr></thead>
+                <tbody>
+                  {% for r in sap_rows %}
+                  <tr>
+                    <td>{{ r.article }}</td><td>{{ r.designation }}</td><td>{{ r.lot }}</td>
+                    <td>{{ r.quantite }}</td><td>{{ r.um }}</td>
+                    <td>{{ r.dlc.strftime('%d/%m/%Y') if r.dlc else '' }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        {% else %}
+          <p class="text-muted">Aucune extraction de stock importée pour ce rapport.</p>
+        {% endif %}
+        <form method="post" action="{{ url_for('main.import_upload', report_id=report.id, kind='lx02') }}" enctype="multipart/form-data" class="mt-2">
+          <div class="input-group">
+            <input type="file" name="sap_file" accept=".xlsx,.xls" class="form-control form-control-sm" required>
+            <button class="btn btn-sm btn-primary">Importer LX02</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header">Mouvements / unités de stock — <strong>LT27</strong></div>
+      <div class="card-body">
+        {% if report.last_movement_import %}
+          <p class="mb-2">
+            <strong>{{ report.last_movement_import.original_filename }}</strong><br>
+            {{ movement_rows|length }} lignes — importée le {{ report.last_movement_import.imported_at.strftime('%d/%m/%Y %H:%M') }}
+          </p>
+          <button class="btn btn-sm btn-outline-secondary mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#lt27table">Voir les lignes</button>
+          <div class="collapse" id="lt27table">
+            <div class="table-responsive" style="max-height:300px">
+              <table class="table table-sm table-striped">
+                <thead><tr><th>Article</th><th>Lot</th><th>Qté</th><th>UM</th><th>Origine</th><th>Destination</th><th>Utilisateur</th><th>Date</th></tr></thead>
+                <tbody>
+                  {% for m in movement_rows %}
+                  <tr class="{{ 'table-warning' if m.concerns(report.zone) else '' }}">
+                    <td>{{ m.article }}</td><td>{{ m.lot }}</td><td>{{ m.quantite }}</td><td>{{ m.um }}</td>
+                    <td>{{ m.emplacement_origine }}</td><td>{{ m.emplacement_destination }}</td>
+                    <td>{{ m.utilisateur }}</td>
+                    <td>{{ m.date_mouvement.strftime('%d/%m/%Y') if m.date_mouvement else '' }} {{ m.heure_mouvement or '' }}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <div class="form-text">Lignes surlignées : mouvement touchant la zone {{ report.zone }}.</div>
+          </div>
+        {% else %}
+          <p class="text-muted">Aucune extraction de mouvements importée pour ce rapport.</p>
+        {% endif %}
+        <form method="post" action="{{ url_for('main.import_upload', report_id=report.id, kind='lt27') }}" enctype="multipart/form-data" class="mt-2">
+          <div class="input-group">
+            <input type="file" name="sap_file" accept=".xlsx,.xls" class="form-control form-control-sm" required>
+            <button class="btn btn-sm btn-primary">Importer LT27</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ AJOUT LIGNE DE CONTROLE ============ -->
+<div class="card shadow-sm mb-4">
+  <div class="card-header">Ajouter un contrôle (physique ou informatique)</div>
+  <div class="card-body">
+    <form method="post" action="{{ url_for('main.line_add', report_id=report.id) }}" enctype="multipart/form-data" id="lineForm">
+      <div class="row g-2 mb-2">
+        <div class="col-md-6">
+          <label class="form-label">Article depuis extraction LX02 (optionnel)</label>
+          <select class="form-select form-select-sm" id="sap_row_id" name="sap_row_id">
+            <option value="">— sélection manuelle —</option>
+            {% for r in sap_rows %}
+            <option value="{{ r.id }}">{{ r.article }} — {{ r.designation }} (lot {{ r.lot or '—' }}, {{ r.quantite }} {{ r.um }})</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Mouvement depuis extraction LT27 (optionnel)</label>
+          <select class="form-select form-select-sm" id="movement_row_id" name="movement_row_id">
+            <option value="">— aucun —</option>
+            {% for m in movement_rows %}
+            <option value="{{ m.id }}">{{ m.article }} — {{ m.utilisateur }} ({{ m.emplacement_origine }} → {{ m.emplacement_destination }})</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <div class="row g-2 mb-2">
+        <div class="col-md-3">
+          <label class="form-label">Article</label>
+          <input type="text" class="form-control form-control-sm" name="article" id="f_article">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Désignation</label>
+          <input type="text" class="form-control form-control-sm" name="designation" id="f_designation">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Lot</label>
+          <input type="text" class="form-control form-control-sm" name="lot" id="f_lot">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Unité de stock</label>
+          <input type="text" class="form-control form-control-sm" name="unite_stock" id="f_unite_stock">
+        </div>
+        <div class="col-md-1">
+          <label class="form-label">UM</label>
+          <input type="text" class="form-control form-control-sm" name="um" id="f_um">
+        </div>
+      </div>
+
+      <div class="row g-2 mb-2">
+        <div class="col-md-2">
+          <label class="form-label">Qté SAP</label>
+          <input type="number" step="any" class="form-control form-control-sm" name="qte_sap" id="f_qte_sap">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Qté physique constatée</label>
+          <input type="number" step="any" class="form-control form-control-sm" name="qte_physique">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">DLC</label>
+          <input type="date" class="form-control form-control-sm" name="dlc" id="f_dlc">
+        </div>
+        <div class="col-md-2">
+          <label class="form-label">Type de contrôle</label>
+          <select class="form-select form-select-sm" name="type_controle">
+            <option value="Physique">Physique</option>
+            <option value="Informatique">Informatique</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Personne ayant réalisé le mouvement</label>
+          <input type="text" class="form-control form-control-sm" name="personne" id="f_personne">
+        </div>
+      </div>
+
+      <div class="row g-2 mb-2">
+        <div class="col-md-6">
+          <label class="form-label">Action réalisée</label>
+          <input type="text" class="form-control form-control-sm" name="action" placeholder="Comptage, correction SAP, remontée qualité...">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Statut (si pas de comparaison de quantité)</label>
+          <select class="form-select form-select-sm" name="statut">
+            <option value="Info">Info</option>
+            <option value="Conforme">Conforme</option>
+            <option value="Anomalie">Anomalie</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Photo(s)</label>
+          <input type="file" class="form-control form-control-sm" name="photos" accept="image/*" multiple>
+        </div>
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Commentaire</label>
+        <textarea class="form-control form-control-sm" name="commentaire" rows="2"></textarea>
+      </div>
+
+      <button class="btn btn-primary btn-sm">Ajouter le contrôle</button>
+    </form>
+  </div>
+</div>
+
+<!-- ============ LIGNES DE CONTROLE ============ -->
+<div class="card shadow-sm mb-4">
+  <div class="card-header">Contrôles enregistrés</div>
+  <div class="card-body p-0">
+    {% if report.lines %}
+    <div class="table-responsive">
+      <table class="table table-sm mb-0">
+        <thead class="table-light">
+          <tr>
+            <th>Article</th><th>Désignation</th><th>Lot</th><th>UM</th>
+            <th>Qté SAP</th><th>Qté phys.</th><th>Écart</th><th>DLC</th>
+            <th>Type</th><th>Personne</th><th>Action</th><th>Statut</th><th>Photos</th><th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for line in report.lines %}
+          <tr class="{{ 'table-danger' if line.is_drift else '' }}">
+            <td>{{ line.article }}</td>
+            <td>{{ line.designation }}</td>
+            <td>{{ line.lot }}</td>
+            <td>{{ line.um }}</td>
+            <td>{{ line.qte_sap if line.qte_sap is not none else '—' }}</td>
+            <td>{{ line.qte_physique if line.qte_physique is not none else '—' }}</td>
+            <td>{{ line.ecart if line.ecart is not none else '—' }}</td>
+            <td>{{ line.dlc.strftime('%d/%m/%Y') if line.dlc else '—' }}</td>
+            <td>{{ line.type_controle }}</td>
+            <td>{{ line.personne or '—' }}</td>
+            <td>{{ line.action or '—' }}</td>
+            <td><span class="badge {{ 'bg-danger' if line.is_drift else 'bg-success' }}">{{ line.statut }}</span></td>
+            <td>{{ line.photos|length }}</td>
+            <td>
+              <form method="post" action="{{ url_for('main.line_delete', report_id=report.id, line_id=line.id) }}" onsubmit="return confirm('Supprimer cette ligne ?');">
+                <button class="btn btn-sm btn-outline-danger">✕</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p class="text-muted p-3 mb-0">Aucun contrôle enregistré pour l'instant.</p>
+    {% endif %}
+  </div>
+</div>
+
+<!-- ============ PHOTOS GENERALES ZONE ============ -->
+<div class="card shadow-sm mb-4">
+  <div class="card-header">Photos du contrôle physique de la zone</div>
+  <div class="card-body">
+    <div class="row g-3 mb-3">
+      {% for photo in report.photos %}
+      <div class="col-md-2 col-sm-3 col-4 text-center">
+        <a href="{{ url_for('main.uploaded_file', filename=photo.filename) }}" target="_blank">
+          <img src="{{ url_for('main.uploaded_file', filename=photo.filename) }}" class="img-thumbnail zone-photo">
+        </a>
+        <div class="small text-muted text-truncate">{{ photo.caption }}</div>
+        <form method="post" action="{{ url_for('main.photo_delete', report_id=report.id, photo_id=photo.id) }}" onsubmit="return confirm('Supprimer cette photo ?');">
+          <button class="btn btn-sm btn-outline-danger mt-1">✕</button>
+        </form>
+      </div>
+      {% else %}
+      <p class="text-muted">Aucune photo générale ajoutée.</p>
+      {% endfor %}
+    </div>
+    <form method="post" action="{{ url_for('main.photos_add', report_id=report.id) }}" enctype="multipart/form-data">
+      <div class="row g-2">
+        <div class="col-md-6">
+          <input type="file" class="form-control form-control-sm" name="photos" accept="image/*" multiple required>
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control form-control-sm" name="caption" placeholder="Légende (optionnel)">
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-sm btn-primary w-100">Ajouter</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+const sapRows = {{ sap_rows_json|tojson }};
+const movementRows = {{ movement_rows_json|tojson }};
+
+document.getElementById('sap_row_id').addEventListener('change', function () {
+  const row = sapRows.find(r => String(r.id) === this.value);
+  if (!row) return;
+  document.getElementById('f_article').value = row.article || '';
+  document.getElementById('f_designation').value = row.designation || '';
+  document.getElementById('f_lot').value = row.lot || '';
+  document.getElementById('f_unite_stock').value = row.unite_stock || '';
+  document.getElementById('f_um').value = row.um || '';
+  document.getElementById('f_qte_sap').value = row.quantite ?? '';
+  document.getElementById('f_dlc').value = row.dlc || '';
+});
+
+document.getElementById('movement_row_id').addEventListener('change', function () {
+  const row = movementRows.find(r => String(r.id) === this.value);
+  if (!row) return;
+  document.getElementById('f_article').value = document.getElementById('f_article').value || row.article || '';
+  document.getElementById('f_lot').value = document.getElementById('f_lot').value || row.lot || '';
+  document.getElementById('f_unite_stock').value = document.getElementById('f_unite_stock').value || row.unite_stock || '';
+  document.getElementById('f_um').value = document.getElementById('f_um').value || row.um || '';
+  document.getElementById('f_personne').value = row.utilisateur || '';
+  document.querySelector('select[name="type_controle"]').value = 'Informatique';
+});
+</script>
+{% endblock %}

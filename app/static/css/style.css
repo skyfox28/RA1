@@ -1,0 +1,13 @@
+body {
+  background-color: #f4f6f9;
+}
+
+.zone-photo {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+}
+
+.card-header {
+  font-weight: 600;
+}

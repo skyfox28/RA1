@@ -1,98 +1,70 @@
-# Rapports de zone — RA1
+# Rapport de zone — RA1
 
-Application web locale pour générer le compte-rendu journalier de contrôle
-d'une zone d'entrepôt (RA1) : constat physique (photos), rapprochement avec
-les extractions SAP (**LX02** — stock, **LT27** — mouvements / unités de
-stock), saisie des actions et des personnes ayant réalisé les mouvements
-physiques ou informatiques, et génération d'un compte-rendu **Word**
-mettant en évidence les écarts et dérives.
+Application **autonome, en un seul fichier HTML** (`rapport-zone-ra1.html`) pour
+générer le compte-rendu journalier de contrôle d'une zone d'entrepôt (RA1) :
+constat physique (photos), rapprochement avec les extractions SAP (**LX02** —
+stock, **LT27** — mouvements / unités de stock), saisie des actions et des
+personnes ayant réalisé les mouvements physiques ou informatiques, et
+génération d'un compte-rendu **Word** mettant en évidence les écarts et
+dérives.
 
-## Fonctionnalités
-
-- Création d'un rapport journalier par zone (RA1 par défaut, mais utilisable
-  pour toute autre zone).
-- Import de l'extraction **LX02** (stock par article : quantité, UM, lot,
-  DLC...). Les colonnes sont détectées automatiquement puis peuvent être
-  corrigées à l'écran avant validation (les extractions SAP n'ont pas
-  toujours exactement les mêmes intitulés selon le poste).
-- Import de l'extraction **LT27** (ordres de transfert / mouvements d'unités
-  de stock) : article, utilisateur ayant réalisé le mouvement, emplacement
-  cédant/prenant, date et heure — permet de vérifier les mouvements
-  informatiques et de suivre une unité de stock (UM) dans la zone.
-- Saisie des contrôles (physiques ou informatiques) : quantité SAP vs
-  quantité physique constatée (écart calculé automatiquement), DLC,
-  personne ayant réalisé le mouvement, action réalisée, statut, commentaire,
-  photo(s) à l'appui.
-- Photos générales de la zone (constat physique du jour), indépendantes des
-  lignes de contrôle.
-- Génération du compte-rendu **Word (.docx)** : synthèse (nombre de
-  contrôles, nombre et taux de dérives, alerte si le taux est élevé),
-  tableau détaillé des écarts (lignes en rouge), photos intégrées.
-- Historique des rapports par zone.
-
-## Installation
-
-Prérequis : Python 3.10+.
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate          # sous Windows : .venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-## Lancement
-
-```bash
-python run.py
-```
-
-L'application est alors disponible sur http://localhost:5000
-
-Les données sont stockées dans une base SQLite locale (`instance/ra1.db`,
-créée automatiquement) et les photos/fichiers importés dans `uploads/`. Ces
-deux dossiers sont ignorés par git (`.gitignore`) : pensez à les sauvegarder
-vous-même si besoin (copie du dossier, ou déploiement sur un poste/serveur
-partagé du site).
+Aucune installation, aucun serveur, aucune connexion internet requise :
+double-cliquez sur le fichier pour l'ouvrir dans votre navigateur (Chrome,
+Edge, Firefox...) et utilisez-le directement.
 
 ## Utilisation
 
-1. **Nouveau rapport** : choisissez la date et le responsable du contrôle
-   (zone RA1 pré-remplie).
-2. **Importer LX02** : chargez l'extraction Excel du stock de la zone.
-   Vérifiez/ajustez la correspondance des colonnes proposée, puis validez.
-3. **Importer LT27** (optionnel) : chargez l'extraction des mouvements pour
-   vérifier les mouvements informatiques (qui a fait quoi, quand) sur la
-   zone.
-4. **Ajouter un contrôle** : sélectionnez un article (LX02) et/ou un
+1. Ouvrez `rapport-zone-ra1.html` dans votre navigateur.
+2. Renseignez la zone (RA1 par défaut), la date et le responsable du
+   contrôle.
+3. **Importer LX02** : chargez l'extraction Excel du stock de la zone.
+   Les colonnes sont détectées automatiquement (Article, Désignation,
+   Quantité, UM, Lot, DLC...) ; vérifiez/corrigez la correspondance
+   proposée puis validez.
+4. **Importer LT27** (optionnel) : chargez l'extraction des mouvements
+   pour vérifier les mouvements informatiques (qui a fait quoi, quand, de
+   quel emplacement vers quel emplacement) sur la zone.
+5. **Ajouter un contrôle** : sélectionnez un article (LX02) et/ou un
    mouvement (LT27) pour pré-remplir la ligne, saisissez la quantité
    physique constatée, la personne, l'action réalisée, et joignez une
    photo si besoin. L'écart et le statut (conforme / écart / péremption)
    sont calculés automatiquement.
-5. **Photos générales** : ajoutez les photos du constat physique de la zone
-   (rangement, zones à risque, etc.), indépendamment d'un article précis.
-6. **Télécharger le compte-rendu Word** : génère le document final avec la
-   synthèse, le détail des écarts (surlignés) et les photos.
+6. **Photos générales** : ajoutez les photos du constat physique de la
+   zone (rangement, zones à risque, etc.), indépendamment d'un article
+   précis.
+7. **Générer le compte-rendu Word** : télécharge le document final avec
+   la synthèse, le détail des écarts (surlignés en rouge) et les photos.
 
-## Structure du projet
+## Points importants
 
-```
-app/
-  __init__.py       # création de l'application Flask (factory)
-  models.py         # modèles de données (SQLAlchemy)
-  routes.py         # routes web
-  sap_import.py      # lecture flexible des extractions Excel LX02 / LT27
-  docx_report.py     # génération du compte-rendu Word
-  templates/          # pages HTML (Jinja2 + Bootstrap)
-  static/             # CSS
-run.py               # point d'entrée
-requirements.txt
-```
+- **Rien n'est envoyé sur internet** : tout le traitement (lecture des
+  fichiers Excel, calculs, génération du document) se fait dans votre
+  navigateur, localement.
+- **Aucune sauvegarde automatique** : les données saisies (imports,
+  contrôles, photos) ne sont conservées que le temps où l'onglet reste
+  ouvert. Pensez à générer et télécharger le compte-rendu Word avant de
+  fermer l'onglet ou le navigateur. Si vous devez faire une pause, ne
+  fermez pas l'onglet.
+- Le fichier `.doc` généré s'ouvre normalement dans Microsoft Word (mise
+  en page paysage, tableau des écarts, photos intégrées). Vous pouvez
+  ensuite l'enregistrer au format `.docx` depuis Word si besoin.
 
 ## Adapter le mapping des colonnes
 
 Les noms de colonnes des extractions LX02/LT27 peuvent varier légèrement
-selon la configuration du poste SAP. `app/sap_import.py` contient des
-listes de mots-clés (`ROLE_KEYWORDS_LX02`, `ROLE_KEYWORDS_LT27`) utilisées
-pour deviner automatiquement la bonne colonne ; en cas de désaccord,
-l'écran de vérification affiché après l'upload permet de corriger
-manuellement chaque colonne avant l'import.
+selon la configuration du poste SAP. Après l'upload, un écran de
+vérification affiche la correspondance détectée automatiquement (mots-clés
+sur les intitulés de colonnes) et permet de la corriger manuellement avant
+l'import — aucune modification du fichier n'est nécessaire en cas
+d'intitulés différents.
+
+## Développement
+
+Le fichier livré est un assemblage de :
+- la bibliothèque [SheetJS](https://sheetjs.com) (lecture des fichiers
+  Excel côté navigateur), intégrée telle quelle pour un fonctionnement
+  100% hors ligne ;
+- le code de l'application (HTML/CSS/JS), qui peut être retrouvé et
+  modifié en éditant directement le fichier `rapport-zone-ra1.html`
+  (section `<style>` pour l'apparence, dernier bloc `<script>` pour la
+  logique applicative).

@@ -6,128 +6,65 @@
 <title>Rapport de zone RA1</title>
 <style>
   :root {
-    --bg: #f4f6f9;
-    --card: #ffffff;
-    --border: #dde2e8;
-    --text: #1f2937;
-    --muted: #6b7280;
-    --primary: #2563eb;
-    --primary-dark: #1d4ed8;
-    --success: #15803d;
-    --danger: #c00000;
-    --danger-bg: #fce4e4;
-    --warning: #b45309;
-    --header-bg: #d9e2f3;
+    --bg: #f4f6f9; --card: #fff; --border: #dde2e8; --text: #1f2937; --muted: #6b7280;
+    --primary: #2563eb; --primary-dark: #1d4ed8; --success: #15803d;
+    --danger: #c00000; --danger-bg: #fce4e4; --warning: #b45309; --header-bg: #d9e2f3;
   }
   * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: "Segoe UI", Calibri, Arial, sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    padding-bottom: 60px;
-  }
-  header.topbar {
-    background: #111827;
-    color: #fff;
-    padding: 14px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
+  body { margin: 0; font-family: "Segoe UI", Calibri, Arial, sans-serif; background: var(--bg); color: var(--text); padding-bottom: 60px; }
+  header.topbar { background: #111827; color: #fff; padding: 14px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
   header.topbar h1 { font-size: 1.15rem; margin: 0; }
-  header.topbar .actions button { margin-left: 8px; }
-  main { max-width: 1200px; margin: 20px auto; padding: 0 16px; }
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 1px 2px rgba(0,0,0,.04);
-  }
-  .card > .card-header {
-    padding: 10px 16px;
-    font-weight: 600;
-    border-bottom: 1px solid var(--border);
-    background: #fafbfc;
-    border-radius: 8px 8px 0 0;
-  }
+  main { max-width: 980px; margin: 20px auto; padding: 0 16px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 20px; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+  .card > .card-header { padding: 10px 16px; font-weight: 600; border-bottom: 1px solid var(--border); background: #fafbfc; border-radius: 8px 8px 0 0; }
   .card > .card-body { padding: 16px; }
   .grid { display: grid; gap: 12px; }
   .grid-2 { grid-template-columns: 1fr 1fr; }
   .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
-  .grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
-  @media (max-width: 720px) {
-    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 640px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
   label { display: block; font-size: .8rem; color: var(--muted); margin-bottom: 3px; }
   input[type=text], input[type=number], input[type=date], input[type=file], select, textarea {
-    width: 100%;
-    padding: 6px 8px;
-    border: 1px solid #cbd5e1;
-    border-radius: 5px;
-    font-size: .9rem;
-    background: #fff;
-    color: var(--text);
-    font-family: inherit;
+    width: 100%; padding: 7px 9px; border: 1px solid #cbd5e1; border-radius: 5px; font-size: .92rem;
+    background: #fff; color: var(--text); font-family: inherit;
   }
   textarea { resize: vertical; }
   .field { margin-bottom: 4px; }
-  button {
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    padding: 7px 14px;
-    font-size: .85rem;
-    font-weight: 600;
-    background: #e5e7eb;
-    color: var(--text);
-  }
+  button { cursor: pointer; border: none; border-radius: 5px; padding: 8px 16px; font-size: .88rem; font-weight: 600; background: #e5e7eb; color: var(--text); }
   button.primary { background: var(--primary); color: #fff; }
   button.primary:hover { background: var(--primary-dark); }
   button.success { background: var(--success); color: #fff; }
-  button.danger { background: #fff; color: var(--danger); border: 1px solid var(--danger); }
+  button.danger { background: #fff; color: var(--danger); border: 1px solid var(--danger); padding: 5px 10px; font-size: .8rem; }
   button.ghost { background: transparent; border: 1px solid #cbd5e1; }
-  button:disabled { opacity: .5; cursor: not-allowed; }
+  button.link { background: none; border: none; color: var(--primary); font-weight: 600; padding: 0; font-size: .82rem; text-decoration: underline; }
   .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 20px; }
-  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; text-align: center; padding: 16px; }
-  .stat .num { font-size: 1.8rem; font-weight: 700; }
-  .stat .lbl { color: var(--muted); font-size: .85rem; }
+  .stat { background: var(--card); border: 1px solid var(--border); border-radius: 8px; text-align: center; padding: 14px; }
+  .stat .num { font-size: 1.7rem; font-weight: 700; }
+  .stat .lbl { color: var(--muted); font-size: .82rem; }
   .stat.danger .num { color: var(--danger); }
-  table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .85rem; }
   th, td { padding: 6px 8px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
-  thead th { background: #f1f5f9; position: sticky; top: 0; }
+  thead th { background: #f1f5f9; }
   tr.drift td { background: var(--danger-bg); color: var(--danger); }
-  .table-wrap { overflow-x: auto; max-height: 340px; overflow-y: auto; }
+  .table-wrap { overflow-x: auto; }
   .badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: .72rem; font-weight: 700; color: #fff; }
   .badge.ok { background: var(--success); }
   .badge.bad { background: var(--danger); }
-  .badge.warn { background: var(--warning); }
-  .badge.info { background: #6b7280; }
   .muted { color: var(--muted); }
-  .small { font-size: .78rem; }
+  .small { font-size: .8rem; }
   .alert { padding: 10px 14px; border-radius: 6px; margin-bottom: 14px; font-size: .88rem; }
   .alert-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
   .alert-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
   .alert-warn { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
-  .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 10px; margin-bottom: 12px; }
-  .photo-item { text-align: center; }
-  .photo-item img { width: 100%; height: 90px; object-fit: cover; border-radius: 5px; border: 1px solid var(--border); cursor: pointer; }
-  .photo-item .cap { font-size: .72rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .row-actions { text-align: right; }
+  .photo-thumbs { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .photo-thumbs img { width: 46px; height: 46px; object-fit: cover; border-radius: 4px; border: 1px solid var(--border); cursor: pointer; }
+  .row-actions { text-align: right; white-space: nowrap; }
   .hint { font-size: .78rem; color: var(--muted); margin-top: 4px; }
-  .mapping-row { display: grid; grid-template-columns: 220px 1fr; gap: 10px; align-items: center; margin-bottom: 6px; }
-  .modal-backdrop {
-    position: fixed; inset: 0; background: rgba(15,23,42,.55);
-    display: flex; align-items: flex-start; justify-content: center;
-    padding: 30px 14px; overflow-y: auto; z-index: 50;
-  }
-  .modal { background: #fff; border-radius: 8px; max-width: 760px; width: 100%; padding: 20px; }
-  .modal h2 { margin-top: 0; font-size: 1.05rem; }
-  .modal-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px; }
+  .mapping-row { display: none; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px; }
+  .mapping-row.open { display: grid; }
+  .mapping-row .field label { font-size: .72rem; }
   .hidden { display: none !important; }
+  .modal-backdrop { position: fixed; inset: 0; background: rgba(15,23,42,.6); display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 50; }
+  .modal-backdrop img { max-width: 90vw; max-height: 85vh; border-radius: 6px; }
   footer.appfoot { text-align: center; color: var(--muted); font-size: .78rem; margin-top: 30px; }
 </style>
 </head>
@@ -135,7 +72,7 @@
 
 <header class="topbar">
   <h1>📋 Rapport de contrôle journalier — Zone <span id="zoneLabel">RA1</span></h1>
-  <div class="actions">
+  <div>
     <button type="button" class="ghost" id="btnReset">Réinitialiser</button>
     <button type="button" class="success" id="btnGenerate">⬇ Générer le compte-rendu Word</button>
   </div>
@@ -150,97 +87,61 @@
     <div class="stat"><div class="num" id="statRate">0%</div><div class="lbl">Taux de dérive</div></div>
   </div>
 
-  <!-- INFOS RAPPORT -->
   <div class="card">
     <div class="card-header">Informations du rapport</div>
-    <div class="card-body grid grid-4">
-      <div class="field">
-        <label>Zone</label>
-        <input type="text" id="inZone" value="RA1">
-      </div>
-      <div class="field">
-        <label>Date du contrôle</label>
-        <input type="date" id="inDate">
-      </div>
-      <div class="field" style="grid-column: span 2;">
-        <label>Responsable du contrôle</label>
-        <input type="text" id="inAuthor" placeholder="Nom prénom">
-      </div>
-      <div class="field" style="grid-column: 1 / -1;">
-        <label>Notes générales (optionnel)</label>
-        <textarea id="inNotes" rows="2"></textarea>
-      </div>
+    <div class="card-body grid grid-3">
+      <div class="field"><label>Zone</label><input type="text" id="inZone" value="RA1"></div>
+      <div class="field"><label>Date du contrôle</label><input type="date" id="inDate"></div>
+      <div class="field"><label>Responsable du contrôle</label><input type="text" id="inAuthor" placeholder="Nom prénom"></div>
     </div>
   </div>
 
-  <!-- IMPORTS SAP -->
-  <div class="grid grid-2">
-    <div class="card">
-      <div class="card-header">Extraction stock — LX02</div>
-      <div class="card-body">
-        <div id="lx02Summary" class="muted small">Aucune extraction importée.</div>
-        <div id="lx02Preview" class="table-wrap hidden"></div>
-        <div class="field" style="margin-top:10px;">
-          <input type="file" id="lx02File" accept=".xlsx,.xls">
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-header">Mouvements / unités de stock — LT27</div>
-      <div class="card-body">
-        <div id="lt27Summary" class="muted small">Aucune extraction importée.</div>
-        <div id="lt27Preview" class="table-wrap hidden"></div>
-        <div class="field" style="margin-top:10px;">
-          <input type="file" id="lt27File" accept=".xlsx,.xls">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- AJOUT LIGNE -->
   <div class="card">
-    <div class="card-header">Ajouter un contrôle (physique ou informatique)</div>
+    <div class="card-header">Référentiel Excel (au besoin, optionnel)</div>
     <div class="card-body">
-      <div class="grid grid-2">
-        <div class="field">
-          <label>Article depuis extraction LX02 (optionnel)</label>
-          <select id="selSapRow"><option value="">— sélection manuelle —</option></select>
-        </div>
-        <div class="field">
-          <label>Mouvement depuis extraction LT27 (optionnel)</label>
-          <select id="selMovementRow"><option value="">— aucun —</option></select>
-        </div>
+      <p class="small muted" style="margin-top:0;">
+        Vous pouvez importer un extrait Excel (SAP ou autre : article, désignation, UM, quantité)
+        pour retrouver facilement un article ci-dessous. Ce n'est pas obligatoire.
+      </p>
+      <input type="file" id="refFile" accept=".xlsx,.xls">
+      <div id="refSummary" class="small muted" style="margin-top:8px;"></div>
+      <button type="button" class="link hidden" id="btnToggleMapping" style="margin-top:6px;">Corriger les colonnes détectées</button>
+      <div class="mapping-row" id="mappingRow">
+        <div class="field"><label>Article</label><select data-role="article"></select></div>
+        <div class="field"><label>Désignation</label><select data-role="designation"></select></div>
+        <div class="field"><label>UM</label><select data-role="um"></select></div>
+        <div class="field"><label>Quantité</label><select data-role="quantite"></select></div>
       </div>
-      <div class="grid grid-4" style="margin-top:8px;">
-        <div class="field"><label>Article</label><input type="text" id="fArticle"></div>
-        <div class="field" style="grid-column: span 2;"><label>Désignation</label><input type="text" id="fDesignation"></div>
-        <div class="field"><label>Lot</label><input type="text" id="fLot"></div>
-      </div>
-      <div class="grid grid-4" style="margin-top:8px;">
-        <div class="field"><label>Unité de stock</label><input type="text" id="fUniteStock"></div>
+      <button type="button" class="ghost hidden" id="btnReapply" style="margin-top:8px;">Ré-appliquer</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">Ajouter un contrôle</div>
+    <div class="card-body">
+      <div class="grid grid-3">
+        <div class="field">
+          <label>Article (optionnel)</label>
+          <input type="text" id="fArticle" list="articleList" placeholder="Code ou nom de l'article">
+          <datalist id="articleList"></datalist>
+        </div>
         <div class="field"><label>UM</label><input type="text" id="fUm"></div>
-        <div class="field"><label>Qté SAP</label><input type="number" step="any" id="fQteSap"></div>
-        <div class="field"><label>Qté physique constatée</label><input type="number" step="any" id="fQtePhysique"></div>
+        <div class="field"><label>Quantité constatée</label><input type="number" step="any" id="fQuantite"></div>
       </div>
-      <div class="grid grid-4" style="margin-top:8px;">
-        <div class="field"><label>DLC</label><input type="date" id="fDlc"></div>
-        <div class="field">
-          <label>Type de contrôle</label>
-          <select id="fTypeControle"><option value="Physique">Physique</option><option value="Informatique">Informatique</option></select>
-        </div>
-        <div class="field" style="grid-column: span 2;"><label>Personne ayant réalisé le mouvement</label><input type="text" id="fPersonne"></div>
+      <div class="hint hidden" id="expectedQtyHint"></div>
+      <div class="grid grid-3" style="margin-top:8px;">
+        <div class="field" style="grid-column: span 2;"><label>Action menée</label><input type="text" id="fAction" placeholder="Comptage, correction SAP, rangement, remontée qualité..."></div>
+        <div class="field"><label>Personne</label><input type="text" id="fPersonne" placeholder="Qui a réalisé l'action"></div>
       </div>
       <div class="grid grid-3" style="margin-top:8px;">
-        <div class="field"><label>Action réalisée</label><input type="text" id="fAction" placeholder="Comptage, correction SAP, remontée qualité..."></div>
         <div class="field">
-          <label>Statut (si pas de comparaison de quantité)</label>
-          <select id="fStatut"><option value="Info">Info</option><option value="Conforme">Conforme</option><option value="Anomalie">Anomalie</option></select>
+          <label>Statut</label>
+          <select id="fStatut"><option value="Conforme">Conforme</option><option value="Ecart">Écart</option><option value="Anomalie">Anomalie</option></select>
         </div>
-        <div class="field"><label>Photo(s)</label><input type="file" id="fPhotos" accept="image/*" multiple></div>
-      </div>
-      <div class="field" style="margin-top:8px;">
-        <label>Commentaire</label>
-        <textarea id="fCommentaire" rows="2"></textarea>
+        <div class="field" style="grid-column: span 2;">
+          <label>Photo(s) / capture(s) d'écran à l'appui</label>
+          <input type="file" id="fPhotos" accept="image/*" multiple>
+        </div>
       </div>
       <div style="margin-top:10px;">
         <button type="button" class="primary" id="btnAddLine">Ajouter le contrôle</button>
@@ -248,60 +149,25 @@
     </div>
   </div>
 
-  <!-- LIGNES -->
   <div class="card">
     <div class="card-header">Contrôles enregistrés</div>
     <div class="card-body table-wrap">
       <table>
         <thead>
-          <tr>
-            <th>Article</th><th>Désignation</th><th>Lot</th><th>UM</th>
-            <th>Qté SAP</th><th>Qté phys.</th><th>Écart</th><th>DLC</th>
-            <th>Type</th><th>Personne</th><th>Action</th><th>Statut</th><th>Photos</th><th></th>
-          </tr>
+          <tr><th>Article</th><th>UM</th><th>Qté</th><th>Action menée</th><th>Personne</th><th>Statut</th><th>Photos</th><th></th></tr>
         </thead>
         <tbody id="linesBody">
-          <tr><td colspan="14" class="muted">Aucun contrôle enregistré pour l'instant.</td></tr>
+          <tr><td colspan="8" class="muted">Aucun contrôle enregistré pour l'instant.</td></tr>
         </tbody>
       </table>
-    </div>
-  </div>
-
-  <!-- PHOTOS GENERALES -->
-  <div class="card">
-    <div class="card-header">Photos du contrôle physique de la zone</div>
-    <div class="card-body">
-      <div class="photo-grid" id="generalPhotoGrid"></div>
-      <div class="grid grid-3">
-        <div class="field" style="grid-column: span 2;"><input type="file" id="genPhotos" accept="image/*" multiple></div>
-        <div class="field"><input type="text" id="genCaption" placeholder="Légende (optionnel)"></div>
-      </div>
-      <button type="button" class="primary" id="btnAddGenPhotos" style="margin-top:8px;">Ajouter</button>
     </div>
   </div>
 
   <footer class="appfoot">Application autonome — aucune donnée n'est envoyée sur internet, tout reste dans votre navigateur tant que vous n'avez pas téléchargé le compte-rendu.</footer>
 </main>
 
-<!-- MODAL MAPPING IMPORT -->
-<div class="modal-backdrop hidden" id="mappingModal">
-  <div class="modal">
-    <h2 id="mappingTitle">Vérifier les colonnes</h2>
-    <p class="small muted" id="mappingFileInfo"></p>
-    <div id="mappingFields"></div>
-    <div id="mappingPreviewWrap" class="table-wrap" style="margin-top:14px;"></div>
-    <div class="modal-actions">
-      <button type="button" class="ghost" id="btnMappingCancel">Annuler</button>
-      <button type="button" class="primary" id="btnMappingConfirm">Valider l'import</button>
-    </div>
-  </div>
-</div>
-
 <div class="modal-backdrop hidden" id="lightboxModal">
-  <div class="modal" style="max-width:90vw;">
-    <img id="lightboxImg" style="max-width:100%; display:block; margin:0 auto;">
-    <div class="modal-actions"><button type="button" class="ghost" id="btnLightboxClose">Fermer</button></div>
-  </div>
+  <img id="lightboxImg">
 </div>
 
 <script>
@@ -334,118 +200,44 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
 (function () {
   "use strict";
 
-  // ---------------------------------------------------------------------
-  // Rôles reconnus par type d'extraction (mêmes mots-clés que la version
-  // serveur, validés sur des exports LX02 / LT27 réels).
-  // ---------------------------------------------------------------------
-  var ROLE_KEYWORDS_LX02 = {
+  var ROLE_KEYWORDS = {
     article: ["article"],
     designation: ["designation"],
-    unite_stock: ["unite de stock", "unite stock"],
-    type_stock: ["type de stock", "type stock"],
-    emplacement: ["emplacement", "magasin"],
-    quantite: ["stock disponible", "quantite", "qte disponible"],
-    um: ["unite de qte", "unite de mesure", "uom"],
-    lot: ["lot"],
-    dlc: ["peremption", "dlc", "expiration"],
-    date_dernier_mouvement: ["dernier mouvement", "date mouvement"]
+    um: ["unite de qte", "unite de quantite", "unite de mesure", "uom"],
+    quantite: ["stock disponible", "qte theor", "quantite theor", "quantite", "qte disponible"]
   };
-
-  var ROLE_KEYWORDS_LT27 = {
-    numero_ot: ["ordre de transfert"],
-    code_mouvement: ["code mouvement"],
-    magasin: ["magasin"],
-    article: ["article"],
-    lot: ["lot"],
-    utilisateur: ["utilisateur"],
-    quantite: ["qte theor", "quantite theor", "quantite"],
-    um: ["unite de quantite alternative", "unite de mesure", "uom"],
-    statut_ot: ["statut confirmation", "statut"],
-    type_stock: ["type de stock"],
-    type_magasin_origine: ["type magasin cedant"],
-    emplacement_origine: ["emplacement cedant"],
-    unite_stock_origine: ["unite stock cedant", "unite de stock cedant"],
-    type_magasin_destination: ["type magasin prenant"],
-    emplacement_destination: ["emplacement prenant"],
-    unite_stock_destination: ["unite de stock pren", "unite stock pren"],
-    date_mouvement: ["date confirmation"],
-    heure_mouvement: ["heure confirmation"]
-  };
-
-  var ROLE_LABELS = {
-    article: "Article", designation: "Désignation", unite_stock: "Unité de stock",
-    type_stock: "Type de stock", emplacement: "Emplacement / Zone", quantite: "Quantité",
-    um: "Unité de mesure", lot: "Lot", dlc: "Date péremption / DLC",
-    date_dernier_mouvement: "Date dernier mouvement", numero_ot: "N° Ordre de transfert",
-    code_mouvement: "Code mouvement (WM)", magasin: "Magasin",
-    utilisateur: "Utilisateur SAP (a réalisé le mouvement)", statut_ot: "Statut confirmation",
-    type_magasin_origine: "Type magasin cédant", emplacement_origine: "Emplacement cédant (origine)",
-    unite_stock_origine: "Unité de stock cédant", type_magasin_destination: "Type magasin prenant",
-    emplacement_destination: "Emplacement prenant (destination)", unite_stock_destination: "Unité de stock prenant",
-    date_mouvement: "Date du mouvement", heure_mouvement: "Heure du mouvement"
-  };
+  var ROLES = Object.keys(ROLE_KEYWORDS);
 
   var DRIFT_THRESHOLD_PCT = 10;
 
-  // ---------------------------------------------------------------------
-  // État de l'application (en mémoire uniquement, pas de persistance)
-  // ---------------------------------------------------------------------
   var state = {
-    sapImport: null,       // {filename, importedAt, rows:[]}
-    movementImport: null,  // {filename, importedAt, rows:[]}
+    refImport: null,   // {filename, importedAt, rows:[{article,designation,um,quantite}]}
     lines: [],
-    generalPhotos: [],
-    nextSapId: 1,
-    nextMovementId: 1,
     nextLineId: 1,
     nextPhotoId: 1
   };
 
-  var pendingImport = null; // {kind, filename, headerNames, headerIndex, dataRows, mapping}
+  var pendingImport = null; // {filename, headerIndex, dataRows, mapping}
 
-  // ---------------------------------------------------------------------
-  // Utilitaires
-  // ---------------------------------------------------------------------
+  // -- utils ---------------------------------------------------------
   function normalize(s) {
     if (s === null || s === undefined) return "";
     return String(s).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
   }
-
   function esc(v) {
     if (v === null || v === undefined) return "";
-    return String(v)
-      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    return String(v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
-
   function toNumber(v) {
     if (v === null || v === undefined || v === "") return null;
     var n = parseFloat(String(v).replace(",", "."));
     return isNaN(n) ? null : n;
   }
-
-  function toDate(v) {
-    if (v === null || v === undefined || v === "") return null;
-    if (v instanceof Date && !isNaN(v.getTime())) return v;
-    var d = new Date(v);
-    return isNaN(d.getTime()) ? null : d;
-  }
-
   function pad2(n) { return n < 10 ? "0" + n : "" + n; }
-
-  function dateInputStr(d) {
-    if (!d) return "";
-    return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate());
-  }
-
-  function dateDisplayStr(d) {
-    if (!d) return "";
-    return pad2(d.getDate()) + "/" + pad2(d.getMonth() + 1) + "/" + d.getFullYear();
-  }
-
-  function nowDisplayStr() {
-    var d = new Date();
-    return dateDisplayStr(d) + " " + pad2(d.getHours()) + ":" + pad2(d.getMinutes());
-  }
+  function dateInputStr(d) { return d.getFullYear() + "-" + pad2(d.getMonth() + 1) + "-" + pad2(d.getDate()); }
+  function dateDisplayStr(d) { return pad2(d.getDate()) + "/" + pad2(d.getMonth() + 1) + "/" + d.getFullYear(); }
+  function nowDisplayStr() { var d = new Date(); return dateDisplayStr(d) + " " + pad2(d.getHours()) + ":" + pad2(d.getMinutes()); }
+  function fmt(v) { return (v === null || v === undefined || v === "") ? "—" : v; }
 
   function flash(message, type) {
     var area = document.getElementById("flashArea");
@@ -457,11 +249,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     setTimeout(function () { if (div.parentNode) div.parentNode.removeChild(div); }, 5000);
   }
 
-  function fmt(v) { return (v === null || v === undefined || v === "") ? "—" : v; }
-
-  // ---------------------------------------------------------------------
-  // Lecture des extractions Excel (SheetJS) + mapping flexible
-  // ---------------------------------------------------------------------
+  // -- lecture Excel + détection des colonnes -------------------------
   function readWorkbook(file, callback) {
     var reader = new FileReader();
     reader.onload = function (e) {
@@ -471,9 +259,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
         var ws = wb.Sheets[wb.SheetNames[0]];
         var rows = XLSX.utils.sheet_to_json(ws, { header: 1, raw: true, defval: null });
         callback(null, rows);
-      } catch (err) {
-        callback(err);
-      }
+      } catch (err) { callback(err); }
     };
     reader.onerror = function () { callback(new Error("Lecture du fichier impossible.")); };
     reader.readAsArrayBuffer(file);
@@ -488,11 +274,11 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     return { names: names, map: map };
   }
 
-  function guessMapping(names, roleKeywords) {
+  function guessMapping(names) {
     var normed = names.map(function (n) { return [n, normalize(n)]; });
     var mapping = {};
-    Object.keys(roleKeywords).forEach(function (role) {
-      var keywords = roleKeywords[role], best = null;
+    ROLES.forEach(function (role) {
+      var keywords = ROLE_KEYWORDS[role], best = null;
       for (var i = 0; i < normed.length; i++) {
         var name = normed[i][0], nname = normed[i][1];
         if (keywords.some(function (kw) { return nname.indexOf(kw) !== -1; })) { best = name; break; }
@@ -504,7 +290,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
 
   function parseRows(dataRows, mapping, headerIndex) {
     var roleIndex = {};
-    Object.keys(mapping).forEach(function (role) {
+    ROLES.forEach(function (role) {
       var headerName = mapping[role];
       if (headerName && headerIndex.map[headerName] !== undefined) roleIndex[role] = headerIndex.map[headerName];
     });
@@ -512,9 +298,9 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     dataRows.forEach(function (row) {
       if (!row || row.every(function (v) { return v === null || v === undefined || v === ""; })) return;
       var item = {}, hasValue = false;
-      Object.keys(roleIndex).forEach(function (role) {
+      ROLES.forEach(function (role) {
         var idx = roleIndex[role];
-        var val = idx < row.length ? row[idx] : null;
+        var val = idx !== undefined && idx < row.length ? row[idx] : null;
         item[role] = (val === undefined) ? null : val;
         if (val !== null && val !== undefined && val !== "") hasValue = true;
       });
@@ -523,7 +309,43 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     return results;
   }
 
-  function handleFileSelected(kind, file) {
+  function fillMappingSelects(headerIndex, mapping) {
+    document.querySelectorAll("#mappingRow select[data-role]").forEach(function (sel) {
+      var role = sel.getAttribute("data-role");
+      var options = '<option value="">— ignorer —</option>';
+      headerIndex.names.forEach(function (name) {
+        var selected = mapping[role] === name ? " selected" : "";
+        options += '<option value="' + esc(name) + '"' + selected + ">" + esc(name) + "</option>";
+      });
+      sel.innerHTML = options;
+    });
+  }
+
+  function currentMappingFromSelects() {
+    var mapping = {};
+    document.querySelectorAll("#mappingRow select[data-role]").forEach(function (sel) {
+      mapping[sel.getAttribute("data-role")] = sel.value || null;
+    });
+    return mapping;
+  }
+
+  function applyImport(filename, dataRows, mapping, headerIndex) {
+    var parsed = parseRows(dataRows, mapping, headerIndex);
+    var rows = parsed.map(function (item) {
+      return {
+        article: item.article != null ? String(item.article).trim() : null,
+        designation: item.designation != null ? String(item.designation).trim() : null,
+        um: item.um != null ? String(item.um).trim() : null,
+        quantite: toNumber(item.quantite)
+      };
+    });
+    state.refImport = { filename: filename, importedAt: nowDisplayStr(), rows: rows };
+    renderRefSummary();
+    renderArticleDatalist();
+    flash(rows.length + " ligne(s) importée(s) depuis " + filename + ".", "success");
+  }
+
+  function handleRefFileSelected(file) {
     if (!file) return;
     var ext = file.name.slice(file.name.lastIndexOf(".")).toLowerCase();
     if (ext !== ".xlsx" && ext !== ".xls") {
@@ -537,234 +359,47 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
       }
       var headerIndex = buildHeaderIndex(rows[0]);
       var dataRows = rows.slice(1);
-      var roleKeywords = kind === "lx02" ? ROLE_KEYWORDS_LX02 : ROLE_KEYWORDS_LT27;
-      var mapping = guessMapping(headerIndex.names, roleKeywords);
-      pendingImport = {
-        kind: kind, filename: file.name, headerIndex: headerIndex, dataRows: dataRows, mapping: mapping
-      };
-      openMappingModal();
+      var mapping = guessMapping(headerIndex.names);
+      pendingImport = { filename: file.name, headerIndex: headerIndex, dataRows: dataRows, mapping: mapping };
+      fillMappingSelects(headerIndex, mapping);
+      document.getElementById("btnToggleMapping").classList.remove("hidden");
+      document.getElementById("btnReapply").classList.remove("hidden");
+      applyImport(pendingImport.filename, dataRows, mapping, headerIndex);
     });
   }
 
-  // ---------------------------------------------------------------------
-  // Modal de vérification / correction du mapping de colonnes
-  // ---------------------------------------------------------------------
-  function openMappingModal() {
-    var roleKeywords = pendingImport.kind === "lx02" ? ROLE_KEYWORDS_LX02 : ROLE_KEYWORDS_LT27;
-    var roles = Object.keys(roleKeywords);
+  function renderRefSummary() {
+    var el = document.getElementById("refSummary");
+    if (state.refImport) {
+      el.innerHTML = "<strong>" + esc(state.refImport.filename) + "</strong> — " +
+        state.refImport.rows.length + " lignes importées le " + esc(state.refImport.importedAt);
+    } else {
+      el.textContent = "";
+    }
+  }
 
-    document.getElementById("mappingTitle").textContent =
-      "Vérifier les colonnes — " + (pendingImport.kind === "lx02" ? "LX02 (stock)" : "LT27 (mouvements)");
-    document.getElementById("mappingFileInfo").textContent =
-      "Fichier : " + pendingImport.filename + ". Les colonnes ont été détectées automatiquement, corrigez-les si besoin.";
-
-    var fieldsHtml = "";
-    roles.forEach(function (role) {
-      var options = '<option value="">— ignorer —</option>';
-      pendingImport.headerIndex.names.forEach(function (name) {
-        var sel = pendingImport.mapping[role] === name ? " selected" : "";
-        options += '<option value="' + esc(name) + '"' + sel + ">" + esc(name) + "</option>";
-      });
-      fieldsHtml += '<div class="mapping-row"><label style="margin:0;">' + esc(ROLE_LABELS[role] || role) +
-        '</label><select data-role="' + role + '">' + options + "</select></div>";
+  function renderArticleDatalist() {
+    var dl = document.getElementById("articleList");
+    dl.innerHTML = "";
+    if (!state.refImport) return;
+    state.refImport.rows.forEach(function (r) {
+      if (!r.article) return;
+      var opt = document.createElement("option");
+      opt.value = r.article;
+      opt.label = [r.article, r.designation].filter(Boolean).join(" — ");
+      dl.appendChild(opt);
     });
-    document.getElementById("mappingFields").innerHTML = fieldsHtml;
-
-    var previewRows = pendingImport.dataRows.slice(0, 5);
-    var headHtml = "<tr>" + pendingImport.headerIndex.names.map(function (n) { return "<th>" + esc(n) + "</th>"; }).join("") + "</tr>";
-    var bodyHtml = previewRows.map(function (row) {
-      return "<tr>" + pendingImport.headerIndex.names.map(function (n) {
-        var idx = pendingImport.headerIndex.map[n];
-        var v = row[idx];
-        if (v instanceof Date) v = dateDisplayStr(v);
-        return "<td>" + esc(v === null || v === undefined ? "" : v) + "</td>";
-      }).join("") + "</tr>";
-    }).join("");
-    document.getElementById("mappingPreviewWrap").innerHTML =
-      "<table><thead>" + headHtml + "</thead><tbody>" + bodyHtml + "</tbody></table>";
-
-    document.getElementById("mappingModal").classList.remove("hidden");
   }
 
-  function closeMappingModal() {
-    document.getElementById("mappingModal").classList.add("hidden");
-    pendingImport = null;
+  function findRefRow(article) {
+    if (!state.refImport || !article) return null;
+    var a = normalize(article);
+    return state.refImport.rows.find(function (r) { return normalize(r.article) === a; }) || null;
   }
 
-  function confirmMappingImport() {
-    if (!pendingImport) return;
-    var mapping = {};
-    document.querySelectorAll("#mappingFields select[data-role]").forEach(function (sel) {
-      mapping[sel.getAttribute("data-role")] = sel.value || null;
-    });
-
-    var parsed = parseRows(pendingImport.dataRows, mapping, pendingImport.headerIndex);
-
-    if (pendingImport.kind === "lx02") {
-      var sapRows = parsed.map(function (item) {
-        return {
-          id: state.nextSapId++,
-          article: item.article != null ? String(item.article).trim() : null,
-          designation: item.designation != null ? String(item.designation).trim() : null,
-          unite_stock: item.unite_stock != null ? String(item.unite_stock).trim() : null,
-          type_stock: item.type_stock != null ? String(item.type_stock).trim() : null,
-          emplacement: item.emplacement != null ? String(item.emplacement).trim() : null,
-          quantite: toNumber(item.quantite),
-          um: item.um != null ? String(item.um).trim() : null,
-          lot: item.lot != null ? String(item.lot).trim() : null,
-          dlc: toDate(item.dlc),
-          date_dernier_mouvement: toDate(item.date_dernier_mouvement)
-        };
-      });
-      state.sapImport = { filename: pendingImport.filename, importedAt: nowDisplayStr(), rows: sapRows };
-    } else {
-      var moveRows = parsed.map(function (item) {
-        return {
-          id: state.nextMovementId++,
-          numero_ot: item.numero_ot != null ? String(item.numero_ot).trim() : null,
-          code_mouvement: item.code_mouvement != null ? String(item.code_mouvement).trim() : null,
-          magasin: item.magasin != null ? String(item.magasin).trim() : null,
-          article: item.article != null ? String(item.article).trim() : null,
-          lot: item.lot != null ? String(item.lot).trim() : null,
-          utilisateur: item.utilisateur != null ? String(item.utilisateur).trim() : null,
-          quantite: toNumber(item.quantite),
-          um: item.um != null ? String(item.um).trim() : null,
-          statut_ot: item.statut_ot != null ? String(item.statut_ot).trim() : null,
-          type_stock: item.type_stock != null ? String(item.type_stock).trim() : null,
-          type_magasin_origine: item.type_magasin_origine != null ? String(item.type_magasin_origine).trim() : null,
-          emplacement_origine: item.emplacement_origine != null ? String(item.emplacement_origine).trim() : null,
-          unite_stock_origine: item.unite_stock_origine != null ? String(item.unite_stock_origine).trim() : null,
-          type_magasin_destination: item.type_magasin_destination != null ? String(item.type_magasin_destination).trim() : null,
-          emplacement_destination: item.emplacement_destination != null ? String(item.emplacement_destination).trim() : null,
-          unite_stock_destination: item.unite_stock_destination != null ? String(item.unite_stock_destination).trim() : null,
-          date_mouvement: toDate(item.date_mouvement),
-          heure_mouvement: item.heure_mouvement instanceof Date
-            ? pad2(item.heure_mouvement.getHours()) + ":" + pad2(item.heure_mouvement.getMinutes())
-            : (item.heure_mouvement != null ? String(item.heure_mouvement).trim() : null)
-        };
-      });
-      state.movementImport = { filename: pendingImport.filename, importedAt: nowDisplayStr(), rows: moveRows };
-    }
-
-    flash(parsed.length + " ligne(s) importée(s) depuis " + pendingImport.filename + ".", "success");
-    closeMappingModal();
-    renderImportSummaries();
-    renderLineSelectOptions();
-  }
-
-  // ---------------------------------------------------------------------
-  // Rendu des résumés d'import + sélecteurs de la ligne de contrôle
-  // ---------------------------------------------------------------------
-  function renderImportSummaries() {
-    var lx02El = document.getElementById("lx02Summary");
-    var lx02Preview = document.getElementById("lx02Preview");
-    if (state.sapImport) {
-      lx02El.innerHTML = "<strong>" + esc(state.sapImport.filename) + "</strong><br>" +
-        state.sapImport.rows.length + " lignes — importée le " + esc(state.sapImport.importedAt);
-      var rowsHtml = state.sapImport.rows.slice(0, 200).map(function (r) {
-        return "<tr><td>" + esc(fmt(r.article)) + "</td><td>" + esc(fmt(r.designation)) + "</td><td>" +
-          esc(fmt(r.lot)) + "</td><td>" + esc(fmt(r.quantite)) + "</td><td>" + esc(fmt(r.um)) + "</td><td>" +
-          esc(r.dlc ? dateDisplayStr(r.dlc) : "") + "</td></tr>";
-      }).join("");
-      lx02Preview.innerHTML = "<table><thead><tr><th>Article</th><th>Désignation</th><th>Lot</th><th>Qté</th><th>UM</th><th>DLC</th></tr></thead><tbody>" + rowsHtml + "</tbody></table>";
-      lx02Preview.classList.remove("hidden");
-    } else {
-      lx02El.textContent = "Aucune extraction de stock importée.";
-      lx02Preview.classList.add("hidden");
-    }
-
-    var lt27El = document.getElementById("lt27Summary");
-    var lt27Preview = document.getElementById("lt27Preview");
-    if (state.movementImport) {
-      lt27El.innerHTML = "<strong>" + esc(state.movementImport.filename) + "</strong><br>" +
-        state.movementImport.rows.length + " lignes — importée le " + esc(state.movementImport.importedAt);
-      var zone = normalize(document.getElementById("inZone").value);
-      var mrowsHtml = state.movementImport.rows.slice(0, 200).map(function (m) {
-        var touches = normalize(m.emplacement_origine) === zone || normalize(m.emplacement_destination) === zone;
-        return '<tr class="' + (touches ? "drift" : "") + '"><td>' + esc(fmt(m.article)) + "</td><td>" + esc(fmt(m.lot)) + "</td><td>" +
-          esc(fmt(m.quantite)) + "</td><td>" + esc(fmt(m.um)) + "</td><td>" + esc(fmt(m.emplacement_origine)) + "</td><td>" +
-          esc(fmt(m.emplacement_destination)) + "</td><td>" + esc(fmt(m.utilisateur)) + "</td><td>" +
-          (m.date_mouvement ? esc(dateDisplayStr(m.date_mouvement)) : "") + " " + esc(fmt(m.heure_mouvement)) + "</td></tr>";
-      }).join("");
-      lt27Preview.innerHTML = "<table><thead><tr><th>Article</th><th>Lot</th><th>Qté</th><th>UM</th><th>Origine</th><th>Destination</th><th>Utilisateur</th><th>Date</th></tr></thead><tbody>" + mrowsHtml + "</tbody></table>" +
-        '<div class="hint">Lignes surlignées : mouvement touchant la zone.</div>';
-      lt27Preview.classList.remove("hidden");
-    } else {
-      lt27El.textContent = "Aucune extraction de mouvements importée.";
-      lt27Preview.classList.add("hidden");
-    }
-  }
-
-  function renderLineSelectOptions() {
-    var sapSel = document.getElementById("selSapRow");
-    sapSel.innerHTML = '<option value="">— sélection manuelle —</option>';
-    if (state.sapImport) {
-      state.sapImport.rows.forEach(function (r) {
-        var opt = document.createElement("option");
-        opt.value = r.id;
-        opt.textContent = fmt(r.article) + " — " + fmt(r.designation) + " (lot " + fmt(r.lot) + ", " + fmt(r.quantite) + " " + fmt(r.um) + ")";
-        sapSel.appendChild(opt);
-      });
-    }
-    var moveSel = document.getElementById("selMovementRow");
-    moveSel.innerHTML = '<option value="">— aucun —</option>';
-    if (state.movementImport) {
-      state.movementImport.rows.forEach(function (m) {
-        var opt = document.createElement("option");
-        opt.value = m.id;
-        opt.textContent = fmt(m.article) + " — " + fmt(m.utilisateur) + " (" + fmt(m.emplacement_origine) + " → " + fmt(m.emplacement_destination) + ")";
-        moveSel.appendChild(opt);
-      });
-    }
-  }
-
-  function findSapRow(id) {
-    if (!id || !state.sapImport) return null;
-    return state.sapImport.rows.find(function (r) { return String(r.id) === String(id); }) || null;
-  }
-  function findMovementRow(id) {
-    if (!id || !state.movementImport) return null;
-    return state.movementImport.rows.find(function (r) { return String(r.id) === String(id); }) || null;
-  }
-
-  document.addEventListener("change", function (e) {
-    if (e.target.id === "selSapRow") {
-      var r = findSapRow(e.target.value);
-      if (r) {
-        document.getElementById("fArticle").value = fmt2(r.article);
-        document.getElementById("fDesignation").value = fmt2(r.designation);
-        document.getElementById("fLot").value = fmt2(r.lot);
-        document.getElementById("fUniteStock").value = fmt2(r.unite_stock);
-        document.getElementById("fUm").value = fmt2(r.um);
-        document.getElementById("fQteSap").value = r.quantite === null ? "" : r.quantite;
-        document.getElementById("fDlc").value = r.dlc ? dateInputStr(r.dlc) : "";
-      }
-    }
-    if (e.target.id === "selMovementRow") {
-      var m = findMovementRow(e.target.value);
-      if (m) {
-        var artEl = document.getElementById("fArticle");
-        if (!artEl.value) artEl.value = fmt2(m.article);
-        var lotEl = document.getElementById("fLot");
-        if (!lotEl.value) lotEl.value = fmt2(m.lot);
-        var usEl = document.getElementById("fUniteStock");
-        if (!usEl.value) usEl.value = fmt2(m.unite_stock_origine || m.unite_stock_destination);
-        var umEl = document.getElementById("fUm");
-        if (!umEl.value) umEl.value = fmt2(m.um);
-        document.getElementById("fPersonne").value = fmt2(m.utilisateur);
-        document.getElementById("fTypeControle").value = "Informatique";
-      }
-    }
-  });
-
-  function fmt2(v) { return v === null || v === undefined ? "" : v; }
-
-  // ---------------------------------------------------------------------
-  // Photos (redimensionnement + encodage base64 côté client)
-  // ---------------------------------------------------------------------
+  // -- photos ----------------------------------------------------------
   function resizeImageToDataUrl(file, maxWidth, quality) {
-    maxWidth = maxWidth || 1280;
-    quality = quality || 0.82;
+    maxWidth = maxWidth || 1280; quality = quality || 0.82;
     return new Promise(function (resolve, reject) {
       var reader = new FileReader();
       reader.onload = function (e) {
@@ -775,8 +410,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
           var canvas = document.createElement("canvas");
           canvas.width = width; canvas.height = height;
           var ctx = canvas.getContext("2d");
-          ctx.fillStyle = "#fff";
-          ctx.fillRect(0, 0, width, height);
+          ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, width, height);
           ctx.drawImage(img, 0, 0, width, height);
           resolve(canvas.toDataURL("image/jpeg", quality));
         };
@@ -799,71 +433,28 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     }));
   }
 
-  // ---------------------------------------------------------------------
-  // Lignes de contrôle
-  // ---------------------------------------------------------------------
-  function computeEcart(line) {
-    if (line.qte_sap === null || line.qte_sap === undefined || line.qte_physique === null || line.qte_physique === undefined) return null;
-    return Math.round((line.qte_physique - line.qte_sap) * 1000) / 1000;
-  }
-
-  function isDrift(line) {
-    var e = computeEcart(line);
-    return (e !== null && e !== 0) || ["Ecart", "Peremption", "Anomalie"].indexOf(line.statut) !== -1;
-  }
-
-  function getReportDate() {
-    var v = document.getElementById("inDate").value;
-    if (!v) return null;
-    var parts = v.split("-");
-    return new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
-  }
+  // -- lignes de contrôle -----------------------------------------------
+  function isDrift(line) { return line.statut === "Ecart" || line.statut === "Anomalie"; }
 
   function addLine() {
-    var sapRow = findSapRow(document.getElementById("selSapRow").value);
-    var moveRow = findMovementRow(document.getElementById("selMovementRow").value);
-
-    var qteSapInput = toNumber(document.getElementById("fQteSap").value);
-    var qteSap = qteSapInput !== null ? qteSapInput : (sapRow ? sapRow.quantite : null);
-
-    var dlcInputVal = document.getElementById("fDlc").value;
-    var dlc = dlcInputVal ? toDate(dlcInputVal) : (sapRow ? sapRow.dlc : null);
-
-    var article = document.getElementById("fArticle").value.trim() || (sapRow ? sapRow.article : (moveRow ? moveRow.article : null));
-    if (!article) {
-      flash("Merci de renseigner au moins un article (ou de le sélectionner depuis une extraction).", "danger");
+    var article = document.getElementById("fArticle").value.trim();
+    var action = document.getElementById("fAction").value.trim();
+    if (!article && !action) {
+      flash("Renseignez au moins un article ou une action menée.", "danger");
       return;
     }
-
+    var ref = findRefRow(article);
     var line = {
       id: state.nextLineId++,
-      sapRowId: sapRow ? sapRow.id : null,
-      movementRowId: moveRow ? moveRow.id : null,
-      article: article,
-      designation: document.getElementById("fDesignation").value.trim() || (sapRow ? sapRow.designation : null),
-      unite_stock: document.getElementById("fUniteStock").value.trim() || (sapRow ? sapRow.unite_stock : (moveRow ? (moveRow.unite_stock_origine || moveRow.unite_stock_destination) : null)),
-      um: document.getElementById("fUm").value.trim() || (sapRow ? sapRow.um : (moveRow ? moveRow.um : null)),
-      lot: document.getElementById("fLot").value.trim() || (sapRow ? sapRow.lot : (moveRow ? moveRow.lot : null)),
-      dlc: dlc,
-      qte_sap: qteSap,
-      qte_physique: toNumber(document.getElementById("fQtePhysique").value),
-      type_controle: document.getElementById("fTypeControle").value,
-      personne: document.getElementById("fPersonne").value.trim() || (moveRow ? moveRow.utilisateur : null),
-      action: document.getElementById("fAction").value.trim(),
-      commentaire: document.getElementById("fCommentaire").value.trim(),
-      statut: "Info",
+      article: article || null,
+      um: document.getElementById("fUm").value.trim() || (ref ? ref.um : null),
+      quantite: toNumber(document.getElementById("fQuantite").value),
+      qteAttendue: ref ? ref.quantite : null,
+      action: action,
+      personne: document.getElementById("fPersonne").value.trim(),
+      statut: document.getElementById("fStatut").value,
       photos: []
     };
-
-    if (line.qte_sap !== null && line.qte_physique !== null) {
-      line.statut = computeEcart(line) !== 0 ? "Ecart" : "Conforme";
-    } else {
-      line.statut = document.getElementById("fStatut").value || "Info";
-    }
-    var reportDate = getReportDate();
-    if (line.dlc && reportDate && dateInputStr(line.dlc) < dateInputStr(reportDate)) {
-      line.statut = "Peremption";
-    }
 
     var photoFiles = document.getElementById("fPhotos").files;
     loadPhotos(photoFiles).then(function (photos) {
@@ -878,13 +469,12 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
   }
 
   function resetLineForm() {
-    ["selSapRow", "selMovementRow", "fArticle", "fDesignation", "fLot", "fUniteStock", "fUm",
-      "fQteSap", "fQtePhysique", "fDlc", "fPersonne", "fAction", "fCommentaire"].forEach(function (id) {
+    ["fArticle", "fUm", "fQuantite", "fAction", "fPersonne"].forEach(function (id) {
       document.getElementById(id).value = "";
     });
-    document.getElementById("fTypeControle").value = "Physique";
-    document.getElementById("fStatut").value = "Info";
+    document.getElementById("fStatut").value = "Conforme";
     document.getElementById("fPhotos").value = "";
+    document.getElementById("expectedQtyHint").classList.add("hidden");
   }
 
   function deleteLine(id) {
@@ -892,34 +482,27 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     renderLines();
   }
 
-  function statutBadgeClass(line) {
-    if (isDrift(line)) return "bad";
-    if (line.statut === "Conforme") return "ok";
-    return "info";
-  }
-
   function renderLines() {
     var body = document.getElementById("linesBody");
     if (!state.lines.length) {
-      body.innerHTML = '<tr><td colspan="14" class="muted">Aucun contrôle enregistré pour l\'instant.</td></tr>';
+      body.innerHTML = '<tr><td colspan="8" class="muted">Aucun contrôle enregistré pour l\'instant.</td></tr>';
     } else {
       body.innerHTML = state.lines.map(function (line) {
-        var ecart = computeEcart(line);
         var drift = isDrift(line);
+        var photosHtml = line.photos.length
+          ? '<div class="photo-thumbs">' + line.photos.map(function (p) {
+              return '<img src="' + p.dataUrl + '" data-lightbox>';
+            }).join("") + "</div>"
+          : '<span class="muted small">—</span>';
         return "<tr" + (drift ? ' class="drift"' : "") + '>' +
           "<td>" + esc(fmt(line.article)) + "</td>" +
-          "<td>" + esc(fmt(line.designation)) + "</td>" +
-          "<td>" + esc(fmt(line.lot)) + "</td>" +
           "<td>" + esc(fmt(line.um)) + "</td>" +
-          "<td>" + esc(line.qte_sap === null ? "—" : line.qte_sap) + "</td>" +
-          "<td>" + esc(line.qte_physique === null ? "—" : line.qte_physique) + "</td>" +
-          "<td>" + esc(ecart === null ? "—" : ecart) + "</td>" +
-          "<td>" + esc(line.dlc ? dateDisplayStr(line.dlc) : "—") + "</td>" +
-          "<td>" + esc(line.type_controle) + "</td>" +
-          "<td>" + esc(fmt(line.personne)) + "</td>" +
+          "<td>" + esc(line.quantite === null ? "—" : line.quantite) +
+            (line.qteAttendue !== null && line.qteAttendue !== undefined ? '<div class="hint">attendu: ' + esc(line.qteAttendue) + "</div>" : "") + "</td>" +
           "<td>" + esc(fmt(line.action)) + "</td>" +
-          '<td><span class="badge ' + statutBadgeClass(line) + '">' + esc(line.statut) + "</span></td>" +
-          "<td>" + line.photos.length + "</td>" +
+          "<td>" + esc(fmt(line.personne)) + "</td>" +
+          '<td><span class="badge ' + (drift ? "bad" : "ok") + '">' + esc(line.statut === "Ecart" ? "Écart" : line.statut) + "</span></td>" +
+          "<td>" + photosHtml + "</td>" +
           '<td class="row-actions"><button type="button" class="danger" data-del-line="' + line.id + '">✕</button></td>' +
           "</tr>";
       }).join("");
@@ -936,51 +519,11 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     document.getElementById("statRate").textContent = rate + "%";
   }
 
-  // ---------------------------------------------------------------------
-  // Photos générales de la zone
-  // ---------------------------------------------------------------------
-  function renderGeneralPhotos() {
-    var grid = document.getElementById("generalPhotoGrid");
-    if (!state.generalPhotos.length) {
-      grid.innerHTML = '<p class="muted small">Aucune photo générale ajoutée.</p>';
-      return;
-    }
-    grid.innerHTML = state.generalPhotos.map(function (p) {
-      return '<div class="photo-item"><img src="' + p.dataUrl + '" data-lightbox="' + p.id + '"><div class="cap">' +
-        esc(p.caption) + '</div><button type="button" class="danger small" data-del-photo="' + p.id + '">✕</button></div>';
-    }).join("");
-  }
-
-  function addGeneralPhotos() {
-    var input = document.getElementById("genPhotos");
-    var caption = document.getElementById("genCaption").value.trim();
-    if (!input.files || !input.files.length) {
-      flash("Sélectionnez au moins une photo.", "warn");
-      return;
-    }
-    loadPhotos(input.files).then(function (photos) {
-      photos.forEach(function (p) { if (caption) p.caption = caption; });
-      state.generalPhotos = state.generalPhotos.concat(photos);
-      input.value = "";
-      document.getElementById("genCaption").value = "";
-      renderGeneralPhotos();
-      flash(photos.length + " photo(s) ajoutée(s).", "success");
-    });
-  }
-
-  function deleteGeneralPhoto(id) {
-    state.generalPhotos = state.generalPhotos.filter(function (p) { return p.id !== id; });
-    renderGeneralPhotos();
-  }
-
-  // ---------------------------------------------------------------------
-  // Génération du compte-rendu Word (export HTML compatible MS Word)
-  // ---------------------------------------------------------------------
+  // -- génération du compte-rendu Word ----------------------------------
   function buildReportHtml() {
     var zone = document.getElementById("inZone").value.trim() || "RA1";
-    var reportDate = getReportDate();
+    var dateVal = document.getElementById("inDate").value;
     var author = document.getElementById("inAuthor").value.trim();
-    var notes = document.getElementById("inNotes").value.trim();
 
     var total = state.lines.length;
     var driftCount = state.lines.filter(isDrift).length;
@@ -997,7 +540,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     html += "h1 { text-align:center; font-size:16pt; }";
     html += "h2 { font-size:12pt; border-bottom:1px solid #999; padding-bottom:3px; margin-top:20px; }";
     html += "table { border-collapse: collapse; width: 100%; margin-top:8px; }";
-    html += "th, td { border: 1px solid #999; padding: 4px 6px; font-size: 8pt; text-align:left; }";
+    html += "th, td { border: 1px solid #999; padding: 4px 6px; font-size: 9pt; text-align:left; }";
     html += "th { background: #D9E2F3; }";
     html += "tr.drift td { background: #FCE4E4; color: #C00000; font-weight:bold; }";
     html += ".alert { color:#C00000; font-weight:bold; }";
@@ -1006,17 +549,12 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     html += "</style></head><body><div class='WordSection1'>";
 
     html += "<h1>Compte-rendu de contrôle journalier &ndash; Zone " + esc(zone) + "</h1>";
-    html += "<p><b>Date du contrôle : </b>" + esc(reportDate ? dateDisplayStr(reportDate) : "—") + "<br>";
+    html += "<p><b>Date du contrôle : </b>" + esc(dateVal || "—") + "<br>";
     html += "<b>Responsable du contrôle : </b>" + esc(author || "—") + "<br>";
-    if (state.sapImport) {
-      html += "<b>Extraction stock (LX02) : </b>" + esc(state.sapImport.filename) + " &mdash; " + state.sapImport.rows.length +
-        " lignes, importée le " + esc(state.sapImport.importedAt) + "<br>";
+    if (state.refImport) {
+      html += "<b>Référentiel importé : </b>" + esc(state.refImport.filename) + " &mdash; " + state.refImport.rows.length +
+        " lignes, importé le " + esc(state.refImport.importedAt) + "<br>";
     }
-    if (state.movementImport) {
-      html += "<b>Extraction mouvements (LT27) : </b>" + esc(state.movementImport.filename) + " &mdash; " + state.movementImport.rows.length +
-        " lignes, importée le " + esc(state.movementImport.importedAt) + "<br>";
-    }
-    if (notes) html += "<b>Notes générales : </b>" + esc(notes);
     html += "</p>";
 
     html += "<h2>Synthèse</h2>";
@@ -1028,51 +566,34 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
       html += "<p>Aucune dérive significative détectée sur cette zone ce jour.</p>";
     }
 
-    html += "<h2>Détail des contrôles physiques et informatiques</h2>";
+    html += "<h2>Détail des contrôles</h2>";
     if (state.lines.length) {
-      html += "<table><thead><tr><th>Article</th><th>Désignation</th><th>Lot</th><th>Unité de stock</th><th>UM</th>" +
-        "<th>Qté SAP</th><th>Qté physique</th><th>Écart</th><th>DLC</th><th>Type de contrôle</th><th>Personne</th><th>Action réalisée</th><th>Statut</th></tr></thead><tbody>";
+      html += "<table><thead><tr><th>Article</th><th>UM</th><th>Qté constatée</th><th>Qté attendue</th><th>Action menée</th><th>Personne</th><th>Statut</th></tr></thead><tbody>";
       state.lines.forEach(function (line) {
-        var ecart = computeEcart(line);
         var cls = isDrift(line) ? " class='drift'" : "";
         html += "<tr" + cls + ">" +
           "<td>" + esc(fmt(line.article)) + "</td>" +
-          "<td>" + esc(fmt(line.designation)) + "</td>" +
-          "<td>" + esc(fmt(line.lot)) + "</td>" +
-          "<td>" + esc(fmt(line.unite_stock)) + "</td>" +
           "<td>" + esc(fmt(line.um)) + "</td>" +
-          "<td>" + esc(line.qte_sap === null ? "—" : line.qte_sap) + "</td>" +
-          "<td>" + esc(line.qte_physique === null ? "—" : line.qte_physique) + "</td>" +
-          "<td>" + esc(ecart === null ? "—" : ecart) + "</td>" +
-          "<td>" + esc(line.dlc ? dateDisplayStr(line.dlc) : "—") + "</td>" +
-          "<td>" + esc(line.type_controle) + "</td>" +
-          "<td>" + esc(fmt(line.personne)) + "</td>" +
+          "<td>" + esc(line.quantite === null ? "—" : line.quantite) + "</td>" +
+          "<td>" + esc(line.qteAttendue === null || line.qteAttendue === undefined ? "—" : line.qteAttendue) + "</td>" +
           "<td>" + esc(fmt(line.action)) + "</td>" +
-          "<td>" + esc(line.statut) + "</td>" +
+          "<td>" + esc(fmt(line.personne)) + "</td>" +
+          "<td>" + esc(line.statut === "Ecart" ? "Écart" : line.statut) + "</td>" +
           "</tr>";
       });
       html += "</tbody></table>";
     } else {
-      html += "<p>Aucune ligne de contrôle enregistrée.</p>";
-    }
-
-    if (state.generalPhotos.length) {
-      html += "<h2>Photos du contrôle physique de la zone</h2>";
-      state.generalPhotos.forEach(function (p) {
-        html += "<img src='" + p.dataUrl + "'>";
-        if (p.caption) html += "<div class='caption'>" + esc(p.caption) + "</div>";
-      });
+      html += "<p>Aucun contrôle enregistré.</p>";
     }
 
     var linesWithPhotos = state.lines.filter(function (l) { return l.photos.length; });
     if (linesWithPhotos.length) {
-      html += "<h2>Photos associées aux contrôles</h2>";
+      html += "<h2>Photos et captures d'écran à l'appui</h2>";
       linesWithPhotos.forEach(function (line) {
-        var caption = [line.article, line.designation].filter(Boolean).join(" — ") || "Contrôle";
+        var caption = [line.article, line.action].filter(Boolean).join(" — ") || "Contrôle";
         html += "<p><b>" + esc(caption) + "</b></p>";
         line.photos.forEach(function (p) {
           html += "<img src='" + p.dataUrl + "'>";
-          if (p.caption) html += "<div class='caption'>" + esc(p.caption) + "</div>";
         });
       });
     }
@@ -1093,9 +614,7 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     var filename = "Rapport_" + zone.replace(/[^a-z0-9_-]+/gi, "_") + "_" + dateVal + ".doc";
     var url = URL.createObjectURL(blob);
     var a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    a.id = "downloadLink";
+    a.href = url; a.download = filename;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -1103,81 +622,83 @@ var o=[];var l=Array.isArray(e);for(f=n.s.c;f<=n.e.c;++f)s[f]=ya(f);for(var c=n.
     flash("Compte-rendu généré : " + filename, "success");
   }
 
-  // ---------------------------------------------------------------------
-  // Réinitialisation
-  // ---------------------------------------------------------------------
+  // -- réinitialisation ---------------------------------------------------
   function resetApp() {
-    if (!confirm("Réinitialiser le rapport ? Toutes les données saisies (contrôles, photos, imports) seront perdues.")) return;
-    state.sapImport = null;
-    state.movementImport = null;
+    if (!confirm("Réinitialiser le rapport ? Toutes les données saisies (contrôles, photos, import) seront perdues.")) return;
+    state.refImport = null;
     state.lines = [];
-    state.generalPhotos = [];
     document.getElementById("inZone").value = "RA1";
     document.getElementById("inDate").value = dateInputStr(new Date());
     document.getElementById("inAuthor").value = "";
-    document.getElementById("inNotes").value = "";
+    document.getElementById("refFile").value = "";
+    document.getElementById("mappingRow").classList.remove("open");
+    document.getElementById("btnToggleMapping").classList.add("hidden");
+    document.getElementById("btnReapply").classList.add("hidden");
     resetLineForm();
-    renderImportSummaries();
-    renderLineSelectOptions();
+    renderRefSummary();
+    renderArticleDatalist();
     renderLines();
-    renderGeneralPhotos();
     flash("Rapport réinitialisé.", "success");
   }
 
-  // ---------------------------------------------------------------------
-  // Câblage des événements
-  // ---------------------------------------------------------------------
+  // -- câblage des événements ----------------------------------------------
   function init() {
     document.getElementById("inDate").value = dateInputStr(new Date());
-
     document.getElementById("inZone").addEventListener("input", function () {
       document.getElementById("zoneLabel").textContent = this.value.trim() || "RA1";
     });
 
-    document.getElementById("lx02File").addEventListener("change", function () {
-      handleFileSelected("lx02", this.files[0]);
-      this.value = "";
-    });
-    document.getElementById("lt27File").addEventListener("change", function () {
-      handleFileSelected("lt27", this.files[0]);
-      this.value = "";
+    document.getElementById("refFile").addEventListener("change", function () {
+      handleRefFileSelected(this.files[0]);
     });
 
-    document.getElementById("btnMappingCancel").addEventListener("click", closeMappingModal);
-    document.getElementById("btnMappingConfirm").addEventListener("click", confirmMappingImport);
+    document.getElementById("btnToggleMapping").addEventListener("click", function () {
+      document.getElementById("mappingRow").classList.toggle("open");
+    });
+    document.getElementById("btnReapply").addEventListener("click", function () {
+      if (!pendingImport) return;
+      var mapping = currentMappingFromSelects();
+      pendingImport.mapping = mapping;
+      applyImport(pendingImport.filename, pendingImport.dataRows, mapping, pendingImport.headerIndex);
+    });
+
+    document.getElementById("fArticle").addEventListener("input", function () {
+      var ref = findRefRow(this.value.trim());
+      var hint = document.getElementById("expectedQtyHint");
+      if (ref) {
+        if (!document.getElementById("fUm").value) document.getElementById("fUm").value = ref.um || "";
+        if (ref.quantite !== null && ref.quantite !== undefined) {
+          hint.textContent = "Quantité attendue (référentiel) : " + ref.quantite + (ref.um ? " " + ref.um : "");
+          hint.classList.remove("hidden");
+        } else {
+          hint.classList.add("hidden");
+        }
+      } else {
+        hint.classList.add("hidden");
+      }
+    });
 
     document.getElementById("btnAddLine").addEventListener("click", addLine);
-    document.getElementById("btnAddGenPhotos").addEventListener("click", addGeneralPhotos);
     document.getElementById("btnGenerate").addEventListener("click", generateReport);
     document.getElementById("btnReset").addEventListener("click", resetApp);
 
     document.getElementById("linesBody").addEventListener("click", function (e) {
-      var btn = e.target.closest("[data-del-line]");
-      if (btn) deleteLine(parseInt(btn.getAttribute("data-del-line"), 10));
-    });
-    document.getElementById("generalPhotoGrid").addEventListener("click", function (e) {
-      var del = e.target.closest("[data-del-photo]");
-      if (del) { deleteGeneralPhoto(parseInt(del.getAttribute("data-del-photo"), 10)); return; }
+      var del = e.target.closest("[data-del-line]");
+      if (del) { deleteLine(parseInt(del.getAttribute("data-del-line"), 10)); return; }
       var img = e.target.closest("[data-lightbox]");
       if (img) openLightbox(img.src);
     });
 
-    document.getElementById("btnLightboxClose").addEventListener("click", closeLightbox);
-    document.getElementById("lightboxModal").addEventListener("click", function (e) {
-      if (e.target.id === "lightboxModal") closeLightbox();
-    });
+    document.getElementById("lightboxModal").addEventListener("click", closeLightbox);
 
     renderLines();
-    renderGeneralPhotos();
   }
 
   function openLightbox(src) {
     document.getElementById("lightboxImg").src = src;
     document.getElementById("lightboxModal").classList.remove("hidden");
   }
-  function closeLightbox() {
-    document.getElementById("lightboxModal").classList.add("hidden");
-  }
+  function closeLightbox() { document.getElementById("lightboxModal").classList.add("hidden"); }
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);
